@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Favicons -->
+    <link href="assets/img/faviconn.png" rel="icon" />
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="../../styles/admin-page.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="../app.webmanifest" />
+
+    <!-- Vendor CSS Files Tables-->
+    <link
+      href="../assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"
+    />
+
+    <!-- Template Main CSS File -->
+    <!-- <link href="../assets/css/style.css" rel="stylesheet" /> -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <title>Admin Page Puskesmas Simpur</title>
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+    <section id="sidebar" class="sidebar">
+      <a href="#" class="brand">
+        <i class="bx bxs-clinic"></i>
+        <span class="text">Admin Page</span>
+      </a>
+      <ul class="side-menu top">
+        <li>
+          <a href="#/">
+            <i class="bx bxs-dashboard"></i>
+            <span class="text">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/akun">
+            <i class="bx bxs-user"></i>
+            <span class="text">Akun</span>
+          </a>
+        </li>
+        <!-- <li>
+          <a href="#/data">
+            <i class="bx bxs-shopping-bag-alt"></i>
+            <span class="text">Data</span>
+          </a>
+        </li> -->
+        <li>
+          <a href="#/pasien">
+            <i class="bx bxs-spreadsheet"></i>
+            <span class="text">Daftar Antrian</span>
+          </a>
+        </li>
+        <!-- <li>
+          <a href="#/menu">
+            <i class="bx bxs-shopping-bag-alt"></i>
+            <span class="text">Menu 1</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/menu2">
+            <i class="bx bxs-shopping-bag-alt"></i>
+            <span class="text">Menu 2</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/menu3">
+            <i class="bx bxs-shopping-bag-alt"></i>
+            <span class="text">Menu 3</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/menu4">
+            <i class="bx bxs-shopping-bag-alt"></i>
+            <span class="text">Menu 4</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/menu5">
+            <i class="bx bxs-shopping-bag-alt"></i>
+            <span class="text">Menu 5</span>
+          </a>
+        </li> -->
+        <li>
+          <a href="#/praktek">
+            <i class="bx bx-task"></i>
+            <span class="text">Jadwal Praktek</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/checkin">
+            <i class="bx bx-task"></i>
+            <span class="text">Data Checkin</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/profil">
+            <i class="bx bxs-user-circle"></i>
+            <span class="text">Edit Profil</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+      <!-- NAVBAR -->
+      <nav class="header-nav ms-auto">
+        <i class="bx bx-menu"></i>
+        <a class="nav-link" style="color: #3c91e6; font-weight: bold"
+          >UPT PUSKESMAS SIMPUR</a
+        >
+        <form action="#">
+          <div class="form-input">
+            <!-- <input type="search" placeholder="Search..." /> -->
+            <!--Mempengaruhi mode malam-->
+            <button>
+              <i class="bx bx-plus-medical"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden />
+
+        <ul class="d-flex align-items-center">
+          <li class="nav-item dropdown pe-3">
+            <a
+              class="nav-link nav-profile d-flex align-items-center pe-0"
+              href="#"
+              data-bs-toggle="dropdown"
+            >
+              <img
+                src="../assets/img/profile-img.png"
+                alt="Profile"
+                class="rounded-circle imgnav"
+              />
+              <span
+                class="d-none d-md-block dropdown-toggle ps-2"
+                id="username"
+                style="text-transform: capitalize"
+                >Admin's Name</span
+              > </a
+            ><!-- End Profile Iamge Icon -->
+
+            <ul
+              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+            >
+              <li class="dropdown-header">
+                <h6 id="namauser" style="text-transform: capitalize">
+                  Kevin Anderson
+                </h6>
+                <span id="user" style="text-transform: capitalize"
+                  >Administrator</span
+                >
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center"
+                  href="#"
+                  id="logoutButton"
+                >
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </a>
+              </li>
+            </ul>
+            <!-- End Profile Dropdown Items -->
+          </li>
+          <!-- End Profile Nav -->
+        </ul>
+
+        <label for="switch-mode" class="switch-mode"></label>
+      </nav>
+      <!-- NAVBAR -->
+
+      <!-- MAIN -->
+      <main id="main"></main>
+    </section>
+
+    <!-- TABLE -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/vendor/echarts/echarts.min.js"></script>
+    <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".nav-link").on("click", function () {
+          $(".nav-link").addClass("collapsed");
+          $(this).removeClass("collapsed");
+        });
+      });
+    </script>
+
+    <script>
+      const allSideMenu = document.querySelectorAll(
+        "#sidebar .side-menu.top li a"
+      );
+
+      allSideMenu.forEach((item) => {
+        const li = item.parentElement;
+
+        item.addEventListener("click", function () {
+          allSideMenu.forEach((i) => {
+            i.parentElement.classList.remove("active");
+          });
+          li.classList.add("active");
+        });
+      });
+
+      // TOGGLE SIDEBAR
+      const menuBar = document.querySelector("#content nav .bx.bx-menu");
+      const sidebar = document.getElementById("sidebar");
+
+      menuBar.addEventListener("click", function () {
+        sidebar.classList.toggle("hide");
+      });
+
+      const searchButton = document.querySelector(
+        "#content nav form .form-input button"
+      );
+      const searchButtonIcon = document.querySelector(
+        "#content nav form .form-input button .bx"
+      );
+      const searchForm = document.querySelector("#content nav form");
+
+      searchButton.addEventListener("click", function (e) {
+        if (window.innerWidth < 576) {
+          e.preventDefault();
+          searchForm.classList.toggle("show");
+          if (searchForm.classList.contains("show")) {
+            searchButtonIcon.classList.replace("bx-search", "bx-x");
+          } else {
+            searchButtonIcon.classList.replace("bx-x", "bx-search");
+          }
+        }
+      });
+
+      if (window.innerWidth < 768) {
+        sidebar.classList.add("hide");
+      } else if (window.innerWidth > 576) {
+        searchButtonIcon.classList.replace("bx-x", "bx-search");
+        searchForm.classList.remove("show");
+      }
+
+      window.addEventListener("resize", function () {
+        if (this.innerWidth > 576) {
+          searchButtonIcon.classList.replace("bx-x", "bx-search");
+          searchForm.classList.remove("show");
+        }
+      });
+
+      const switchMode = document.getElementById("switch-mode");
+
+      switchMode.addEventListener("change", function () {
+        if (this.checked) {
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
+        }
+      });
+    </script>
+
+    <!-- <script src="../../public/assets/js/main.js"></script> -->
+    <script src="../../styles/admin-page.css"></script>
+  </body>
+</html>

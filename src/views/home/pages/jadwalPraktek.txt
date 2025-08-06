@@ -1,0 +1,149 @@
+import hapusPraktekFunction from "../../../scripts/utils/hapusJadwalPraktekFunction";
+import homePraktekFunctions from "../../../scripts/utils/homeJadwalPraktekFunctions";
+import tambahPraktekFunction from "../../../scripts/utils/tambahJadwalPraktekFunction";
+
+/* eslint-disable no-undef */
+const jadwalPraktek = {
+  async render() {
+    return `
+      <section class="section accounts">
+        <div class="table-data">
+          <div class="card-body">
+          <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#addProducts"><i class="bi bi-plus-circle"></i> TAMBAH DATA <i class="bi bi-plus-circle"></i></button>
+            <h5 class="card-title">List Data</h5>
+            <div class="table-responsive">
+              <table class="table table-hover" id="praktekTable">
+                <thead>
+                  <tr class="table-secondary">
+                  <th scope="col" class="no-sort text-center">No.</th>
+                  <th scope="col" class="no-sort text-center">Nama Poli</th>
+                  <th scope="col" class="no-sort text-center">Nama Dokter</th>
+                  <th scope="col" class="no-sort text-center">Senin</th>
+                  <th scope="col" class="no-sort text-center">Selasa</th>
+                  <th scope="col" class="no-sort text-center">Rabu</th>
+                  <th scope="col" class="no-sort text-center">Kamis</th>
+                  <th scope="col" class="no-sort text-center">Jumat</th>
+                  <th scope="col" class="no-sort text-center">Sabtu</th>
+                  <th scope="col" class="no-sort text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="align-middle" id="bodyPraktek">
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Modal Add Products -->
+      <div class="modal fade" id="addProducts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="addProductsLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-xl">
+                  <div class="modal-content" id="form-edit">
+                    <form action="#" method="post" id="tambahPraktek" enctype="multipart/form-data">
+                          <div class="modal-header border-0 border-top border-4 border-primary">
+                              <h1 class="modal-title fs-5" id="addProductsLabel">Tambah Data</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body border-top">
+                              <div class="row">
+                                    <div class="mb-3">
+                                        <label for="namaPoli" class="form-label">Nama Poli</label>
+                                        <input type="text" class="form-control" name="namaPoli" id="namaPoli" aria-label="Nama Poli" placeholder="Isikan nama dari nama poli" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="namaDokter" class="form-label">Nama Dokter</label>
+                                        <input type="text" class="form-control" name="namaDokter" id="namaDokter" aria-label="Nama Dokter" placeholder="Isikan nama dari nama dokter" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jadwalSenin" class="form-label">Senin</label>
+                                        <input type="text" class="form-control" name="jadwalSenin" id="jadwalSenin" aria-label="Jadwal Senin" placeholder="Isikan jadwal senin" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jadwalSelasa" class="form-label">Selasa</label>
+                                        <input type="text" class="form-control" name="jadwalSelasa" id="jadwalSelasa" aria-label="Jadwal Selasa" placeholder="Isikan jadwal selasa" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jadwalRabu" class="form-label">Rabu</label>
+                                        <input type="text" class="form-control" name="jadwalRabu" id="jadwalRabu" aria-label="Jadwal Rabu" placeholder="Isikan jadwal rabu" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jadwalKamis" class="form-label">Kamis</label>
+                                        <input type="text" class="form-control" name="jadwalKamis" id="jadwalKamis" aria-label="Jadwal Kamis" placeholder="Isikan jadwal kamis" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jadwalJumat" class="form-label">Jumat</label>
+                                        <input type="text" class="form-control" name="jadwalJumat" id="jadwalJumat" aria-label="Jadwal Jumat" placeholder="Isikan jadwal jumat" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jadwalSabtu" class="form-label">Sabtu</label>
+                                        <input type="text" class="form-control" name="jadwalSabtu" id="jadwalSabtu" aria-label="Jadwal Sabtu" placeholder="Isikan jadwal sabtu" required>
+                                    </div>
+                                  <div class="d-grid gap-2 mt-2">
+                                      <button class="btn btn-primary" type="submit" id="btnTambah">Tambah</button>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                      </form>
+                      
+                  </div>
+              </div>
+      </div>
+            `;
+  },
+
+  async afterRender() {
+    console.log("afterrender items");
+
+    const bodyData = document.querySelector("#bodyPraktek");
+    const fetchedPraktek = await homePraktekFunctions.getAllData();
+    console.log(fetchedPraktek);
+    let i = 1;
+
+    fetchedPraktek.forEach(async (d) => {
+      const data = d.data();
+      data.id = d.id;
+      bodyPraktek.innerHTML += `<tr>
+      <th scope="row">${i}</th>
+      <td id='praktekidname' value=${data.admin}>${data.nama_poli}</td>
+      <td class="text-center">${data.nama_dokter}</td>
+      <td class="text-center">${data.jadwal_senin}</td>
+      <td class="text-center">${data.jadwal_selasa}</td>
+      <td class="text-center">${data.jadwal_rabu}</td>
+      <td class="text-center">${data.jadwal_kamis}</td>
+      <td class="text-center">${data.jadwal_jumat}</td>
+      <td class="text-center">${data.jadwal_sabtu}</td>
+      <td class="text-center"><a href="#/editpraktek/${data.id}" role="button" class="btn btn-outline-secondary">Edit</a>
+      <button type="button" class="btn btn-outline-danger" id="deletePraktek" data-id="${data.id}">Del</button></td>
+    </tr>`;
+      i += 1;
+    });
+
+    await homePraktekFunctions.convertIDtoName();
+
+    await tambahPraktekFunction.init();
+
+    await hapusPraktekFunction.init();
+
+    await $("#praktekTable").DataTable({
+      // eslint-disable-next-line quotes
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      columnDefs: [
+        {
+          targets: "no-sort",
+          orderable: false,
+        },
+      ],
+    });
+  },
+};
+
+export default jadwalPraktek;

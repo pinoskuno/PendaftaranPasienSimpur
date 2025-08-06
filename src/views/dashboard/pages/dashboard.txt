@@ -1,0 +1,161 @@
+// import homeDashboardFunctions from "../../../scripts/utils/homeDashboardFunctions";
+
+import dashboardHomescreenFunctions from "../../../scripts/utils/dashboardHomescreenFunctions";
+import homePraktekFunctions from "../../../scripts/utils/homePraktekFunctions";
+import homePasienFunctions from "../../../scripts/utils/homePasienFunctions";
+
+const dashboardHome = {
+  async render() {
+    return `
+
+    <div id="daftarJadwalPraktek" class="counts">
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <p>Jadwal Praktek</p>
+        </header>
+         
+            <div class="table-data">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover" id="praktekTable">
+                    <thead>
+                      <tr style="background-color: #52D3D8;">
+                      <th scope="col" class="no-sort text-center">No.</th>
+                      <th scope="col" class="no-sort text-center">Nama Poli</th>
+                      <th scope="col" class="no-sort text-center">Nama Dokter</th>
+                      <th scope="col" class="no-sort text-center">Senin</th>
+                      <th scope="col" class="no-sort text-center">Selasa</th>
+                      <th scope="col" class="no-sort text-center">Rabu</th>
+                      <th scope="col" class="no-sort text-center">Kamis</th>
+                      <th scope="col" class="no-sort text-center">Jumat</th>
+                      <th scope="col" class="no-sort text-center">Sabtu</th>
+                      </tr>
+                    </thead>
+                    <tbody class="align-middle" id="bodyPraktek">
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+      </div>
+    </div>
+
+    <section id="daftarAntrianPasien" class="counts">
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <p>Daftar Antrian Pasien 2</p>
+        </header>
+
+        <div class="table-data">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover" id="pasienTable">
+                <thead>
+                  <tr style="background-color: #52D3D8;">
+                    <th scope="col" class="no-sort text-center">No.</th>
+                    <th scope="col" class="no-sort text-center">Nama Pasien</th>
+                    <th scope="col" class="no-sort text-center">Nomor Rekam Medis</th>
+                    <th scope="col" class="no-sort text-center">Jenis Kelamin</th>
+                    <th scope="col" class="no-sort text-center">Poli</th>
+                    <th scope="col" class="no-sort text-center">Waktu Reservasi</th>
+                    <th scope="col" class="no-sort text-center">Checkin</th>
+                    <th scope="col" class="no-sort text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="align-middle" id="bodyPasien">
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>`;
+  },
+
+  async afterRender() {
+    console.log("afterrender items");
+
+    const bodyPraktek = document.querySelector("#bodyPraktek");
+    const fetchedPraktek = await homePraktekFunctions.getAllJadwalPraktek();
+    console.log(fetchedPraktek);
+    let i = 1;
+
+    fetchedPraktek.forEach(async (d) => {
+      const data = d.data();
+      data.id = d.id;
+      bodyPraktek.innerHTML += `<tr>
+      <th scope="row">${i}</th>
+      <td id='praktekidname' value=${data.admin}>${data.nama_poli}</td>
+      <td class="text-center">${data.nama_dokter}</td>
+      <td class="text-center">${data.jadwal_senin}</td>
+      <td class="text-center">${data.jadwal_selasa}</td>
+      <td class="text-center">${data.jadwal_rabu}</td>
+      <td class="text-center">${data.jadwal_kamis}</td>
+      <td class="text-center">${data.jadwal_jumat}</td>
+      <td class="text-center">${data.jadwal_sabtu}</td>
+    </tr>`;
+      i += 1;
+    });
+
+    await homePraktekFunctions.convertIDtoName();
+
+    await $("#praktekTable").DataTable({
+      // eslint-disable-next-line quotes
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      columnDefs: [
+        {
+          targets: "no-sort",
+          orderable: false,
+        },
+      ],
+    });
+
+    const bodyPasien = document.querySelector("#bodyPasien");
+    const fetchedPasien = await homePasienFunctions.getAllDaftarAntrian();
+    console.log(fetchedPasien);
+    let x = 1;
+
+    fetchedPasien.forEach(async (d) => {
+      const data = d.data();
+      data.id = d.id;
+      bodyPasien.innerHTML += `<tr>
+        <th scope="row">${x}</th>
+        <td id='pasienidname' value=${data.admin}>${data.nama_pasien}</td>
+        <td class="text-center">${data.nomor_rekam_medis}</td>
+        <td class="text-center">${data.jenis_kelamin}</td>
+        <td class="text-center">${data.poli}</td>
+        <td class="text-center">${data.waktu_reservasi}</td>
+        <td class="text-center">${data.checkin}</td>
+        <td class="text-center">${data.status}</td>
+      </tr>`;
+      x += 1;
+    });
+
+    await homePasienFunctions.convertIDtoName();
+
+    await $("#pasienTable").DataTable({
+      // eslint-disable-next-line quotes
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      columnDefs: [
+        {
+          targets: "no-sort",
+          orderable: false,
+        },
+      ],
+    });
+  },
+};
+
+export default dashboardHome;
